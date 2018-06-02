@@ -1,33 +1,99 @@
 import React from 'react';
 import axios from 'axios';
+import { NavLink, withRouter } from 'react-router-dom';
+
+import AuthService from '../services/auth';
+
+import './Profile.css';
 
 class Profile extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      user: {}
+      user: {
+        account: {
+          username: '',
+          level: '',
+          experience: '',
+          coins: ''
+        },
+        facebook: {
+          id: '',
+          email: '',
+          name: {
+            familyName: '',
+            givenName: '',
+            middleName: ''
+          }
+        }
+      }
     }
+
+    this.authService = new AuthService();
   }
 
   componentDidMount() {
-    axios.get('')
-      .then(({ data }) => {
+    const token = this.authService.token;
 
+    axios({
+      method: 'GET',
+      url: 'https://ping-pong-main-server.herokuapp.com/api/oauth/user',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(({ data }) => {
+        this.setState({ user: data['user'] });
       })
       .catch(err => console.log(err));
   }
 
+  logout = () => {
+    this.authService.logout();
+    this.props.history.push('/login');
+  }
+
   render() {
     return (
-      <section>
+      <section id="profile">
         <div className="container">
-          <div className="card mx-auto my-3" style={{ width: "18rem" }}>
-            <img 
-              className="card-img-top" 
+          <div className="card text-center">
+            <img
+              className="card-img-top"
               src="images/default-avatar.jpg" alt="John Doe" />
             <div className="card-body">
-
+              <h2 className="card-title">
+                {this.state.user.facebook.name.givenName}&nbsp;
+                {this.state.user.facebook.name.familyName}
+              </h2>
+              <h4 className="card-subtitle text-muted">
+                {this.state.user.account.username}
+              </h4>
+            </div>
+            <div className="row unit-stats">
+              <div className="col-4 item">
+                <div className="stat">{this.state.user.account.level}</div>
+                <div className="stat-value">Level</div>
+              </div>
+              <div className="col-4 item">
+                <div className="stat">{this.state.user.account.experience}</div>
+                <div className="stat-value">Experience</div>
+              </div>
+              <div className="col-4 item">
+                <div className="stat">{this.state.user.account.coins}</div>
+                <div className="stat-value">Coins</div>
+              </div>
+            </div>
+            <div className="card-body">
+              <button className="btn btn-danger" onClick={this.logout}>
+                <i className="fas fa-sign-out-alt mr-2"></i>Logout
+              </button>
+            </div>
+            <div className="card-footer">
+              <NavLink to="/" className="btn btn-secondary">
+                <i className="fas fa-arrow-alt-circle-left mr-2"></i>Back
+              </NavLink>
             </div>
           </div>
         </div>
@@ -36,4 +102,4 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default withRouter(Profile);

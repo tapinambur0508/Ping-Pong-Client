@@ -1,0 +1,33 @@
+#profile .card {
+  max-width: 350px;
+  margin: 50px auto;
+  background: #ffffff;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+#profile .card .unit-stats {
+  margin: 0;
+  color: #ffffff;
+  font-weight: 700;
+  background: #eda54e;
+}
+
+#profile .card .unit-stats .item {
+  padding: 1.2rem 1rem;
+}
+
+#profile .card .unit-stats .item:nth-child(2) {
+  border-left: 1px solid #bc7c2f;
+  border-right: 1px solid #bc7c2f;
+}
+
+#profile .card .unit-stats .item .stat {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+}
+
+#profile .card .unit-stats .item .stat-value {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 0.8rem;
+}
