@@ -1,0 +1,21 @@
+#home .wrapper {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+#home .wrapper .heading {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+#home .wrapper nav {
+  margin: 10px 0;
+}
+
+#home .wrapper nav a.btn {
+  border-radius: 10px;
+}

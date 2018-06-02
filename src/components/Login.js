@@ -1,42 +1,50 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
+import withRouter from 'react-router-dom/withRouter';
 import axios from 'axios';
+
+import AuthService from '../services/auth';
 
 import config from '../config.json';
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
+import './Login.css';
 
-    this.state = {
-      isAuthenticated: false,
-      user: null,
-      token: ''
-    };
-  }
-
-
-  facebookResponse = response => {
-    axios.post('https://ping-pong-main-server.herokuapp.com/api/oauth/facebook', {
-      access_token: response.accessToken
-    }, {
+const Login = props => {
+  const facebookResponse = response => {
+    axios({
+      method: 'POST',
+      url: 'https://ping-pong-main-server.herokuapp.com/api/oauth/facebook',
+      data: {
+        access_token: response.accessToken
+      },
       headers: {
         'Content-Type': 'application/json'
       }
     })
-      .then(res => console.log(res))
+      .then(({ data }) => {
+        const authService = new AuthService();
+
+        authService.token = data['access_token'];
+        props.history.push('/');
+      })
       .catch(err => console.log(err));
   };
 
-  render() {
-    return (
-      <FacebookLogin
-        appId={config.FACEBOOK_APP_ID}
-        autoLoad={false}
-        fields="name,email,picture"
-        callback={this.facebookResponse} />
-    )
-  }
+  return (
+    <section id="login">
+      <div className="container">
+        <div className="wrapper">
+          <h1 className="heading">Ping-Pong</h1>
+          <FacebookLogin
+            appId={config.FACEBOOK_APP_ID}
+            autoLoad={false}
+            fields="name,email,picture"
+            textButton="Continue with Facebook"
+            callback={facebookResponse} />
+        </div>
+      </div>
+    </section>
+  );
 }
 
-export default Login;
+export default withRouter(Login);

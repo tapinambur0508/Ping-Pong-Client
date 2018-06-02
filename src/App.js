@@ -1,6 +1,7 @@
 import React from 'react';
 import Loadable from 'react-loadable';
-import { Switch, Route } from 'react-router-dom';
+
+import AuthService from './services/auth';
 
 import Loading from './components/Loading';
 
@@ -9,31 +10,19 @@ const Login = Loadable({
   loading: Loading
 });
 
-const Home = Loadable({
-
+const Main = Loadable({
+  loader: () => import('./Main'),
+  loading: Loading
 });
 
-const Profile = Loadable({
+const App = () => {
+  const isLogin = () => {
+    const authService = new AuthService();
 
-});
-
-class App extends React.Component {
-  isLogin() {
-    return true;
+    return authService.loggedIn();
   }
 
-  render() {
-    if (this.isLogin()) {
-      return (
-        <Switch>
-          <Route path="/profile" />
-          <Route path="/" component={} />
-        </Switch>  
-      );
-    } else {
-
-    }
-  }
+  return isLogin() ? <Main /> : <Login />  
 }
 
 export default App;

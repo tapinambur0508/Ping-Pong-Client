@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins');
+#login .wrapper {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+#login .wrapper .heading {
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+#login .wrapper button.kep-login-facebook {
+  margin: 10px 0;
+  border-radius: 50px;
+  text-indent: 10px;
+  border: none;
+  width: 100%;
+}
