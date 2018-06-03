@@ -67,9 +67,9 @@ class Profile extends React.Component {
                 {this.state.user.facebook.name.givenName}&nbsp;
                 {this.state.user.facebook.name.familyName}
               </h2>
-              <h4 className="card-subtitle text-muted">
+              <h5 className="card-subtitle text-muted">
                 {this.state.user.account.username}
-              </h4>
+              </h5>
             </div>
             <div className="row unit-stats">
               <div className="col-4 item">

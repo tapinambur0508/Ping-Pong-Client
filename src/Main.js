@@ -9,6 +9,11 @@ const Home = Loadable({
   loading: Loading
 });
 
+const Rooms = Loadable({
+  loader: () => import('./components/Rooms'),
+  loading: Loading
+});
+
 const Profile = Loadable({
   loader: () => import('./components/Profile'),
   loading: Loading
@@ -17,6 +22,7 @@ const Profile = Loadable({
 export default () => (
   <Switch>
     <Route path="/" component={Home} exact />
+    <Route path="/start-game" component={Rooms} />
     <Route path="/profile" component={Profile} />
   </Switch>
 );
