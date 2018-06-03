@@ -13,7 +13,7 @@ export default () => (
             <i className="fas fa-play mr-2"></i>Start Game
             </NavLink>
           <NavLink to="/profile" className="btn btn-info btn-block">
-            <i class="far fa-user-circle mr-2"></i>Profile
+            <i className="far fa-user-circle mr-2"></i>Profile
           </NavLink>
         </nav>
       </div>

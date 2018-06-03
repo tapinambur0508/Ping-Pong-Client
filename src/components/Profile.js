@@ -59,9 +59,9 @@ class Profile extends React.Component {
       <section id="profile">
         <div className="container">
           <div className="card text-center">
-            <img
-              className="card-img-top"
-              src="images/default-avatar.jpg" alt="John Doe" />
+            <div className="card-header">
+              <h2>Profile</h2>
+            </div>
             <div className="card-body">
               <h2 className="card-title">
                 {this.state.user.facebook.name.givenName}&nbsp;
@@ -87,12 +87,12 @@ class Profile extends React.Component {
             </div>
             <div className="card-body">
               <button className="btn btn-danger" onClick={this.logout}>
-                <i className="fas fa-sign-out-alt mr-2"></i>Logout
+                <i className="fas fa-sign-out-alt mr-1"></i>Logout
               </button>
             </div>
             <div className="card-footer">
-              <NavLink to="/" className="btn btn-secondary">
-                <i className="fas fa-arrow-alt-circle-left mr-2"></i>Back
+              <NavLink to="/" className="btn btn-dark">
+                <i className="fas fa-arrow-left mr-1"></i>Back
               </NavLink>
             </div>
           </div>
