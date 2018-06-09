@@ -1,4 +1,4 @@
-#rooms .card {
+#rooms > * > .card {
   margin: 50px auto;
   border-radius: 10px;
   background: #ffffff;
@@ -6,6 +6,6 @@
   max-height: 85vh;
 }
 
-#rooms .card .card-body {
+#rooms > * > .card > .card-body {
   overflow-y: auto;
 }

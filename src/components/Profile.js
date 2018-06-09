@@ -36,9 +36,7 @@ class Profile extends React.Component {
   componentDidMount() {
     const token = this.authService.token;
 
-    axios({
-      method: 'GET',
-      url: 'https://ping-pong-main-server.herokuapp.com/api/oauth/user',
+    axios.get('https://ping-pong-main-server.herokuapp.com/api/oauth/user', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
