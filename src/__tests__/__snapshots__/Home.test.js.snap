@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home Component Home Component matches the snapshot 1`] = `
+<section
+  id="home"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="wrapper"
+    >
+      <h1
+        className="heading"
+      >
+        Ping-Pong
+      </h1>
+      <nav>
+        <a
+          aria-current={null}
+          className="btn btn-success btn-block"
+          href="/start-game"
+          onClick={[Function]}
+        >
+          <i
+            className="fas fa-play mr-2"
+          />
+          Start Game
+        </a>
+        <a
+          aria-current={null}
+          className="btn btn-info btn-block"
+          href="/profile"
+          onClick={[Function]}
+        >
+          <i
+            className="far fa-user-circle mr-2"
+          />
+          Profile
+        </a>
+      </nav>
+    </div>
+  </div>
+</section>
+`;

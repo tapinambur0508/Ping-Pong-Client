@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Profile Profile Component matches the snapshot 1`] = `
+<section
+  id="profile"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="card text-center"
+    >
+      <div
+        className="card-header"
+      >
+        <h2>
+          Profile
+        </h2>
+      </div>
+      <div
+        className="card-body"
+      >
+        <h2
+          className="card-title"
+        >
+          
+           
+          
+        </h2>
+        <h5
+          className="card-subtitle text-muted"
+        >
+          
+        </h5>
+      </div>
+      <div
+        className="row unit-stats"
+      >
+        <div
+          className="col-4 item"
+        >
+          <div
+            className="stat"
+          >
+            
+          </div>
+          <div
+            className="stat-value"
+          >
+            Level
+          </div>
+        </div>
+        <div
+          className="col-4 item"
+        >
+          <div
+            className="stat"
+          >
+            
+          </div>
+          <div
+            className="stat-value"
+          >
+            Experience
+          </div>
+        </div>
+        <div
+          className="col-4 item"
+        >
+          <div
+            className="stat"
+          >
+            
+          </div>
+          <div
+            className="stat-value"
+          >
+            Coins
+          </div>
+        </div>
+      </div>
+      <div
+        className="card-body"
+      >
+        <button
+          className="btn btn-danger"
+          onClick={[Function]}
+        >
+          <i
+            className="fas fa-sign-out-alt mr-1"
+          />
+          Logout
+        </button>
+      </div>
+      <div
+        className="card-footer"
+      >
+        <a
+          aria-current="page"
+          className="btn btn-dark active"
+          href="/"
+          onClick={[Function]}
+          style={Object {}}
+        >
+          <i
+            className="fas fa-arrow-left mr-1"
+          />
+          Back
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+`;
