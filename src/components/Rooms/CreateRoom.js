@@ -103,11 +103,11 @@ class CreateRoom extends React.Component {
                 {battleTypesOptions}
               </select>
             </div>
-            <Button type="submit" variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary" name="">
               Create
             </Button>
             <span className="mx-1"></span>
-            <Button type="reset" variant="contained" color="secondary">
+            <Button type="reset" variant="contained" color="secondary" name="">
               Cancel
             </Button>
           </form>

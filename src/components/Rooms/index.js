@@ -10,7 +10,7 @@ import RoomCard from './RoomCard';
 
 import './main.css';
 
-class Rooms extends React.Component {
+export class Rooms extends React.Component {
   constructor(props) {
     super(props);
 
@@ -84,7 +84,7 @@ class Rooms extends React.Component {
                   </h2>
                 </div>
                 <div className="dashhead-toolbar">
-                  <button className="btn btn-primary" onClick={this.openDialog}>
+                  <button className="btn btn-primary" onClick={this.openDialog} name="">
                     <i className="fas fa-plus"></i>
                   </button>
                 </div>

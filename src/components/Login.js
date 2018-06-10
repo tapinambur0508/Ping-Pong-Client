@@ -9,7 +9,7 @@ import config from '../config.json';
 
 import './Login.css';
 
-const Login = props => {
+export const Login = props => {
   const facebookResponse = response => {
     axios({
       method: 'POST',
