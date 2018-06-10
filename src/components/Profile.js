@@ -31,6 +31,7 @@ class Profile extends React.Component {
     }
 
     this.authService = new AuthService();
+    this.logout = this.logout.bind(this);
   }
 
   componentDidMount() {
@@ -47,7 +48,7 @@ class Profile extends React.Component {
       .catch(err => console.log(err));
   }
 
-  logout = () => {
+  logout() {
     this.authService.logout();
     this.props.history.push('/login');
   }

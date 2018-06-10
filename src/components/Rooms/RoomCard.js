@@ -7,9 +7,6 @@ import AuthService from '../../services/auth';
 const RoomCard = props => {
   const joinToRoom = () => {
     const authService = new AuthService();
-    const socket = io(process.env.REACT_APP_API_HOST);
-
-    socket.emit('connectToGameRoom', { id: props._id });
 
     axios({
       method: 'DELETE',
@@ -18,12 +15,12 @@ const RoomCard = props => {
         'Authorization': `Bearer ${authService.token}`
       }
     })
-      .then(() => console.log('OK'))
-      .catch(err => console.log(err));
+      .then(({ data }) => {
+        const socket = io(process.env.REACT_APP_API_HOST);
 
-    socket.on('connectedToGameRoom', ({ id }) => {
-      props.onDelete(id);
-    });
+        socket.emit('connectToGameRoom', data['gameRoomId']);
+      })
+      .catch(err => console.log(err));
   }
 
   return (

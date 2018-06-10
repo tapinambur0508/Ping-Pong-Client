@@ -13,21 +13,20 @@ class CreateRoom extends React.Component {
     super(props);
 
     this.state = {
-      open: false,
       battleTypeId: '',
       battleTypes: []
     };
 
     this.authService = new AuthService();
-    this.socket = io(process.env.REACT_APP_API_HOST);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleReset = this.handleReset.bind(this);
   }
 
   componentDidMount() {
-    const token = this.authService.token;
-
     axios.get('https://ping-pong-main-server.herokuapp.com/api/battle-types', {
       headers: {
-        'Authorization': `Bearer ${token}`
+        'Authorization': `Bearer ${this.authService.token}`
       }
     })
       .then(({ data }) => {
@@ -40,18 +39,18 @@ class CreateRoom extends React.Component {
     this.setState({ open: newProps.open });
   }
 
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
+  handleChange(name) {
+    return (event) => {
+      this.setState({ [name]: event.target.value });
+    }
   }
 
-  handleSubmit = event => {
+  handleSubmit(event) {
     event.preventDefault();
 
     const battleTypeId = this.state.battleTypeId;
 
     if (battleTypeId) {
-      const token = this.authService.token;
-
       axios({
         method: 'POST',
         url: 'https://ping-pong-main-server.herokuapp.com/api/game-rooms',
@@ -59,11 +58,13 @@ class CreateRoom extends React.Component {
           battleTypeId
         },
         headers: {
-          'Authorization': `Bearer ${token}`
+          'Authorization': `Bearer ${this.authService.token}`
         }
       })
         .then(({ data }) => {
-          this.socket.emit('createGameRoom', data['gameRoom']);
+          const socket = io(process.env.REACT_APP_API_HOST);
+
+          socket.emit('createGameRoom', data['gameRoom']);
 
           this.handleReset();
         })
@@ -71,8 +72,8 @@ class CreateRoom extends React.Component {
     }
   }
 
-  handleReset = () => {
-    this.setState({ open: false, battleTypeId: '' });
+  handleReset() {
+    this.setState({ battleTypeId: '' }, () => this.props.onClose());
   }
 
   render() {
@@ -84,7 +85,7 @@ class CreateRoom extends React.Component {
 
     return (
       <Dialog
-        open={this.state.open}
+        open={this.props.open}
         onClose={this.handleClose}>
         <DialogTitle>Create Room</DialogTitle>
         <DialogContent>
@@ -102,11 +103,11 @@ class CreateRoom extends React.Component {
                 {battleTypesOptions}
               </select>
             </div>
-            <Button onClick={this.handleSubmit} variant="contained" color="primary">
+            <Button type="submit" variant="contained" color="primary">
               Create
             </Button>
             <span className="mx-1"></span>
-            <Button onClick={this.handleReset} variant="contained" color="secondary">
+            <Button type="reset" variant="contained" color="secondary">
               Cancel
             </Button>
           </form>

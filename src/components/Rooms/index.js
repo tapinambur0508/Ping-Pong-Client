@@ -20,11 +20,13 @@ class Rooms extends React.Component {
     }
 
     this.authService = new AuthService();
-    this.socket = io(process.env.REACT_APP_API_HOST);
+    this.openDialog = this.openDialog.bind(this);
+    this.closeDialog = this.closeDialog.bind(this);
   }
 
   componentDidMount() {
     const token = this.authService.token;
+    const socket = io(process.env.REACT_APP_API_HOST);
 
     axios.get('https://ping-pong-main-server.herokuapp.com/api/game-rooms', {
       headers: {
@@ -35,33 +37,43 @@ class Rooms extends React.Component {
         this.setState({ gameRooms: data['gameRooms'] });
       })
       .catch(err => console.log(err));
+
+    socket.on('newGameRoomCreated', newRoom => {
+      const newGameRooms = [newRoom, ...this.state.gameRooms];
+
+      this.setState({ gameRooms: newGameRooms });
+    })
+
+    socket.on('gameRoomDeleted', id => {
+      const index = this.state.gameRooms.findIndex(e => e._id === id);
+
+      const newGameRooms = [
+        ...this.state.gameRooms.slice(0, index),
+        ...this.state.gameRooms.slice(index + 1)
+      ];
+
+      this.setState({ gameRooms: newGameRooms });
+    });
   }
 
-  openDialog = () => {
+  openDialog() {
     this.setState({ isDialogOpen: true });
   }
 
-  deleteRoom = id => {
-    const index = this.state.gameRooms.findIndex(e => e._id === id);
-
-    const newGameRooms = [
-      ...this.state.gameRooms.slice(0, index),
-      ...this.state.gameRooms.slice(index + 1)
-    ];
-
-    this.setState({ gameRooms: newGameRooms });
+  closeDialog() {
+    this.setState({ isDialogOpen: false });
   }
 
   render() {
     const roomsList = this.state.gameRooms.map(element => (
       <div key={element._id} className="col-4">
-        <RoomCard {...element} onDelete={this.deleteRoom} />
+        <RoomCard {...element} />
       </div>
     ));
 
     return (
       <section id="rooms">
-        <CreateRoom open={this.state.isDialogOpen} />
+        <CreateRoom open={this.state.isDialogOpen} onClose={this.closeDialog} />
         <div className="container">
           <div className="card">
             <div className="card-header">
