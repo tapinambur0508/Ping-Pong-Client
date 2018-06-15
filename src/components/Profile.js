@@ -6,7 +6,7 @@ import AuthService from '../services/auth';
 
 import './Profile.css';
 
-export class Profile extends React.Component {
+class Profile extends React.Component {
   constructor(props) {
     super(props);
 
@@ -51,25 +51,6 @@ export class Profile extends React.Component {
   logout() {
     this.authService.logout();
     this.props.history.push('/login');
-    const newState = {...this.state};
-    newState.user = {
-      account: {
-        username: '',
-        level: '',
-        experience: '',
-        coins: ''
-      },
-      facebook: {
-        id: '',
-        email: '',
-        name: {
-          familyName: '',
-          givenName: '',
-          middleName: ''
-        }
-      }
-    };
-    this.setState(newState);
   }
 
   render() {

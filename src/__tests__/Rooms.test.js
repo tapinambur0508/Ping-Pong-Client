@@ -1,8 +1,8 @@
 import React from 'react';
-import { Rooms } from '../components/Rooms';
+import Rooms from '../components/Rooms';
 import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
-import { StaticRouter } from 'react-router'
+import StaticRouter from 'react-router/StaticRouter'
 
 describe('Rooms', () => {
   it('should be defined', () => {
@@ -15,6 +15,7 @@ describe('Rooms', () => {
         <Rooms />
       </StaticRouter>
     ).toJSON();
+
     expect(tree).toMatchSnapshot();
   });
 
@@ -27,13 +28,5 @@ describe('Rooms', () => {
     const isDialogOpen = wrapper.state().isDialogOpen;
 
     expect(isDialogOpen).toEqual(true);
-  });
-
-  it('should close modal window', () => {
-    const wrapper = shallow(<Rooms />);
-
-    const isDialogOpen = wrapper.state().isDialogOpen;
-
-    expect(isDialogOpen).toEqual(false);
   });
 })
