@@ -24,7 +24,7 @@ const Court = styled.div`
 
 export default props => (
   <Court>
-    <Stage height={props.height} width={props.width}>
+    <Stage width={props.width} height={props.height}>
       <Layer>
         {props.children}
       </Layer>
