@@ -27,12 +27,16 @@ class MyPaddle extends React.Component {
   loop = () => {
     if (this.state.up && this.props.y > 0) {
       this.props.update(this.props.y - this.props.speed);
-      const socket = io(process.env.REACT_APP_API_GAME_HOST);
-      socket.emit('rackedMooved', { y_coordinate: this.props.y, userID: this.user.sub });
+      this.props.socket.emit('rackedMooved', {
+        y_coordinate: this.props.y,
+        userID: this.user.sub
+      });
     } else if (this.state.down && this.props.y <= (this.props.windowHeight - this.props.height)) {
       this.props.update(this.props.y + this.props.speed);
-      const socket = io(process.env.REACT_APP_API_GAME_HOST);
-      socket.emit('rackedMooved', { y_coordinate: this.props.y, userID: this.user.sub });
+      this.props.socket.emit('rackedMooved', {
+        y_coordinate: this.props.y,
+        userID: this.user.sub
+      });
     }
 
     requestAnimationFrame(this.loop);

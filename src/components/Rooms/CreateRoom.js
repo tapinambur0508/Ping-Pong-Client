@@ -18,9 +18,6 @@ class CreateRoom extends React.Component {
     };
 
     this.authService = new AuthService();
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleReset = this.handleReset.bind(this);
   }
 
   componentDidMount() {
@@ -39,13 +36,11 @@ class CreateRoom extends React.Component {
     this.setState({ open: newProps.open });
   }
 
-  handleChange(name) {
-    return (event) => {
-      this.setState({ [name]: event.target.value });
-    }
+  handleChange = name => event => {
+    this.setState({ [name]: event.target.value });
   }
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
 
     const battleTypeId = this.state.battleTypeId;
@@ -72,7 +67,7 @@ class CreateRoom extends React.Component {
     }
   }
 
-  handleReset() {
+  handleReset = () => {
     this.setState({ battleTypeId: '' }, () => this.props.onClose());
   }
 
