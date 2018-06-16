@@ -42,9 +42,11 @@ const RoomCard = props => {
             </tr>
           </tbody>
         </table>
-        <button className="btn btn-success btn-lg btn-block" onClick={joinToRoom}>
-          Join
-      </button>
+        {props.firstPlayer._id !== props.user.sub && (
+          <button className="btn btn-success btn-lg btn-block" onClick={joinToRoom}>
+            Join
+          </button>
+        )}
       </div>
     </div>
   );

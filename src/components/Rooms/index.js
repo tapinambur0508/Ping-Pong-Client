@@ -16,17 +16,20 @@ export class Rooms extends React.Component {
 
     this.state = {
       gameRooms: [],
-      isDialogOpen: false
+      isDialogOpen: false,
+      user: {}
     }
 
     this.authService = new AuthService();
-    this.openDialog = this.openDialog.bind(this);
-    this.closeDialog = this.closeDialog.bind(this);
   }
 
   componentDidMount() {
     const token = this.authService.token;
     const socket = io(process.env.REACT_APP_API_HOST);
+
+    this.setState({
+      user: this.authService.getProfile()
+    });
 
     axios.get('https://ping-pong-main-server.herokuapp.com/api/game-rooms', {
       headers: {
@@ -56,18 +59,22 @@ export class Rooms extends React.Component {
     });
   }
 
-  openDialog() {
-    this.setState({ isDialogOpen: true });
+  openDialog = () => {
+    this.setState({
+      isDialogOpen: true
+    });
   }
 
-  closeDialog() {
-    this.setState({ isDialogOpen: false });
+  closeDialog = () => {
+    this.setState({
+      isDialogOpen: false
+    });
   }
 
   render() {
     const roomsList = this.state.gameRooms.map(element => (
       <div key={element._id} className="col-4">
-        <RoomCard {...element} />
+        <RoomCard user={this.state.user} {...element} />
       </div>
     ));
 

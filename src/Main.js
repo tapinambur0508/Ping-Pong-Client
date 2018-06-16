@@ -1,6 +1,6 @@
 import React from 'react';
 import Loadable from 'react-loadable';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 import Loading from './components/Loading';
 
@@ -19,10 +19,17 @@ const Profile = Loadable({
   loading: Loading
 });
 
+const Game = Loadable({
+  loader: () => import('./components/Game'),
+  loading: Loading
+});
+
 export default () => (
   <Switch>
     <Route path="/" component={Home} exact />
     <Route path="/start-game" component={Rooms} />
     <Route path="/profile" component={Profile} />
+    <Route path="/game" component={Game} />
+    <Redirect from="*" to="/" />
   </Switch>
 );

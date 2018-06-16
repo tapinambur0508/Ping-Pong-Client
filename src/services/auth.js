@@ -9,6 +9,10 @@ class AuthService {
     localStorage.setItem('id_token', token);
   }
 
+  getProfile() {
+    return decode(this.token);
+  }
+
   logout() {
     localStorage.removeItem('id_token');
   }
