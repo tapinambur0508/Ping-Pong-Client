@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import NavLink from 'react-router-dom/NavLink';
+import { withRouter, NavLink } from 'react-router-dom';
 import io from 'socket.io-client';
 
 import AuthService from '../../services/auth';
@@ -16,20 +16,16 @@ export class Rooms extends React.Component {
 
     this.state = {
       gameRooms: [],
-      isDialogOpen: false,
-      user: {}
+      isDialogOpen: false
     }
 
     this.authService = new AuthService();
+    this.user = this.authService.getProfile();
   }
 
   componentDidMount() {
     const token = this.authService.token;
     const socket = io(process.env.REACT_APP_API_HOST);
-
-    this.setState({
-      user: this.authService.getProfile()
-    });
 
     axios.get('https://ping-pong-main-server.herokuapp.com/api/game-rooms', {
       headers: {
@@ -47,8 +43,8 @@ export class Rooms extends React.Component {
       this.setState({ gameRooms: newGameRooms });
     })
 
-    socket.on('gameRoomDeleted', id => {
-      const index = this.state.gameRooms.findIndex(e => e._id === id);
+    socket.on('gameRoomDeleted', room => {
+      const index = this.state.gameRooms.findIndex(e => e._id === room._id);
 
       const newGameRooms = [
         ...this.state.gameRooms.slice(0, index),
@@ -56,6 +52,11 @@ export class Rooms extends React.Component {
       ];
 
       this.setState({ gameRooms: newGameRooms });
+
+      if (room.firstPlayer === this.user.sub) {
+        localStorage.setItem('room_id', room._id);
+        this.props.history.push('/game');
+      }
     });
   }
 
@@ -74,7 +75,7 @@ export class Rooms extends React.Component {
   render() {
     const roomsList = this.state.gameRooms.map(element => (
       <div key={element._id} className="col-4">
-        <RoomCard user={this.state.user} {...element} />
+        <RoomCard user={this.user} {...element} />
       </div>
     ));
 
@@ -114,4 +115,4 @@ export class Rooms extends React.Component {
   }
 }
 
-export default Rooms;
+export default withRouter(Rooms);

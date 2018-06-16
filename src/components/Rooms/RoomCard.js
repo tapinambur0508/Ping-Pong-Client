@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import io from 'socket.io-client';
+import withRouter from 'react-router-dom/withRouter';
 
 import AuthService from '../../services/auth';
 
@@ -10,7 +11,7 @@ const RoomCard = props => {
 
     axios({
       method: 'DELETE',
-      url: `https://ping-pong-main-server.herokuapp.com/api/game-rooms/${props._id}`,
+      url: `${process.env.REACT_APP_API_HOST}/api/game-rooms/${props._id}`,
       headers: {
         'Authorization': `Bearer ${authService.token}`
       }
@@ -18,7 +19,9 @@ const RoomCard = props => {
       .then(({ data }) => {
         const socket = io(process.env.REACT_APP_API_HOST);
 
-        socket.emit('connectToGameRoom', data['gameRoomId']);
+        socket.emit('connectToGameRoom', data);
+        localStorage.setItem('room_id', data._id);
+        props.history.push('/game');
       })
       .catch(err => console.log(err));
   }
@@ -52,4 +55,4 @@ const RoomCard = props => {
   );
 }
 
-export default RoomCard;
+export default withRouter(RoomCard);
