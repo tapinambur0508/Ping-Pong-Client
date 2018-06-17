@@ -9,14 +9,19 @@ class EnemyPaddle extends React.Component {
     });
   }
 
-  render = () => (
-    <Rect
-      x={this.props.windowWidth - this.props.width - this.props.x}
-      y={this.props.y}
-      width={this.props.width}
-      height={this.props.height}
-      fill="#ffffff" />
-  );
+  render() {
+    const myX = this.props.position ?
+      this.props.x : this.props.windowWidth - this.props.width - this.props.x;
+
+    return (
+      <Rect
+        x={myX}
+        y={this.props.y}
+        width={this.props.width}
+        height={this.props.height}
+        fill="#000000" />
+    );
+  }
 }
 
 export default withPaddle(EnemyPaddle);

@@ -55,14 +55,19 @@ class MyPaddle extends React.Component {
     }
   }
 
-  render = () => (
-    <Rect
-      x={this.props.x}
-      y={this.props.y}
-      width={this.props.width}
-      height={this.props.height}
-      fill="#e20025" />
-  );
+  render() {
+    const myX = this.props.position ?
+      this.props.windowWidth - this.props.width - this.props.x : this.props.x;
+
+    return (
+      <Rect
+        x={myX}
+        y={this.props.y}
+        width={this.props.width}
+        height={this.props.height}
+        fill="#ffffff" />
+    );
+  }
 }
 
 export default withPaddle(MyPaddle);

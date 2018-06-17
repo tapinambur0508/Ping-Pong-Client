@@ -48,49 +48,26 @@ class Game extends React.Component {
   }
 
   render() {
-    let leftPaddle;
-    let rightPaddle;
-    if (this.state.position) {
-      leftPaddle = (
-        <EnemyPaddle
-          socket={this.socket}
-          windowWidth={this.state.width}
-          windowHeight={this.state.height} />
-      );
-      rightPaddle = (
-        <MyPaddle
-          user={this.user}
-          socket={this.socket}
-          windowWidth={this.state.width}
-          windowHeight={this.state.height} />
-      );
-    } else {
-      rightPaddle = (
-        <EnemyPaddle
-          socket={this.socket}
-          windowWidth={this.state.width}
-          windowHeight={this.state.height} />
-      );
-      leftPaddle = (
-        <MyPaddle
-          user={this.user}
-          socket={this.socket}
-          windowWidth={this.state.width}
-          windowHeight={this.state.height} />
-      );
-    }
-
     return (
       <Court
         width={this.state.width}
         height={this.state.height}>
-        {leftPaddle}
+        <MyPaddle
+          user={this.user}
+          socket={this.socket}
+          position={this.state.position}
+          windowWidth={this.state.width}
+          windowHeight={this.state.height} />
         <Ball
           user={this.user}
           socket={this.socket}
           windowWidth={this.state.width}
           windowHeight={this.state.height} />
-        {rightPaddle}
+        <EnemyPaddle
+          socket={this.socket}
+          position={this.state.position}
+          windowWidth={this.state.width}
+          windowHeight={this.state.height} />
       </Court>
     );
   }
