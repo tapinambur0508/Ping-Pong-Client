@@ -41,6 +41,7 @@ class Game extends React.Component {
         width={this.state.width}
         height={this.state.height}>
         <MyPaddle
+          user={this.user}
           socket={this.socket}
           windowWidth={this.state.width}
           windowHeight={this.state.height} />

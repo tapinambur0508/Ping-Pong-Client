@@ -32,9 +32,7 @@ const withPaddle = Component => {
     }
 
     updatePosition = newY => {
-      this.setState({
-        y: newY
-      });
+      this.setState({ y: newY });
     }
 
     render() {

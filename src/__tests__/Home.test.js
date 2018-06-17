@@ -30,4 +30,4 @@ describe('Home Component', () => {
 
     expect(links).toHaveLength(2);
   });
-})
+});

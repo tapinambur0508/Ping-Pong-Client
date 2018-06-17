@@ -10,7 +10,7 @@ import RoomCard from './RoomCard';
 
 import './main.css';
 
-export class Rooms extends React.Component {
+class Rooms extends React.Component {
   constructor(props) {
     super(props);
 

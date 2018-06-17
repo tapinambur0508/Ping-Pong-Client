@@ -27,4 +27,4 @@ describe('Profile', () => {
 
     expect(tree).toMatchSnapshot();
   });
-})
+});
