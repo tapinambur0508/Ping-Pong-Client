@@ -33,7 +33,7 @@ class MyPaddle extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.props.y !== prevProps.y) {
       this.props.socket.emit('rackedMooved', {
-        y_coordinate: this.props.y,
+        y_coordinate: this.props.y + (this.props.height / 2),
         userID: this.props.user.sub
       });
     }
