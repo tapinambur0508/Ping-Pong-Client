@@ -13,38 +13,46 @@ class MyPaddle extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('keydown', event => {
-      if (event.keyCode === 38) {
-        this.setState({ up: true });
-      } else if (event.keyCode === 40) {
-        this.setState({ down: true });
-      }
-    }, false);
-
-    window.addEventListener('keyup', event => {
-      if (event.keyCode === 38) {
-        this.setState({ up: false });
-      } else if (event.keyCode === 40) {
-        this.setState({ down: false });
-      }
-    }, false);
-
+    window.addEventListener('keydown', this.handleKeyDown, false);
+    window.addEventListener('keyup', this.handleKeyUp, false);
     this.loop();
   }
 
   loop = () => {
+    const { speed, windowHeight, height } = this.props;
+
     if (this.state.up && this.props.y > 0) {
-      this.props.update(this.props.y - this.props.speed);
-    } else if (this.state.down && this.props.y <= (this.props.windowHeight - this.props.height)) {
-      this.props.update(this.props.y + this.props.speed);
+      this.props.update(this.props.y - speed);
+    } else if (this.state.down && this.props.y < (windowHeight - height)) {
+      this.props.update(this.props.y + speed);
     }
 
-    this.props.socket.emit('rackedMooved', {
-      y_coordinate: this.props.y,
-      userID: this.props.user.sub
-    });
-
     requestAnimationFrame(this.loop);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.y !== prevProps.y) {
+      this.props.socket.emit('rackedMooved', {
+        y_coordinate: this.props.y,
+        userID: this.props.user.sub
+      });
+    }
+  }
+
+  handleKeyDown = event => {
+    if (event.keyCode === 38) {
+      this.setState({ up: true });
+    } else if (event.keyCode === 40) {
+      this.setState({ down: true });
+    }
+  }
+
+  handleKeyUp = event => {
+    if (event.keyCode === 38) {
+      this.setState({ up: false });
+    } else if (event.keyCode === 40) {
+      this.setState({ down: false });
+    }
   }
 
   render = () => (

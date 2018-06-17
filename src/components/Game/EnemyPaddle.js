@@ -5,7 +5,7 @@ import withPaddle from './hoc/withPaddle';
 class EnemyPaddle extends React.Component {
   componentDidMount() {
     this.props.socket.on('enemyMovedRacket', y => {
-      this.props.update(y);
+      requestAnimationFrame(() => this.props.update(y));
     });
   }
 

@@ -3,8 +3,8 @@ import { Stage, Layer } from 'react-konva';
 import styled from 'styled-components';
 
 const Court = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 1000px;
+  height: 480px;
   background: #46a07e;
   position: relative;
   overflow: hidden;

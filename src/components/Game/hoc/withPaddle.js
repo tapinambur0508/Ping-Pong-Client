@@ -23,14 +23,6 @@ const withPaddle = Component => {
       });
     }
 
-    componentDidUpdate(prevProps) {
-      if (prevProps.windowHeight !== this.props.windowHeight) {
-        this.setState({
-          y: (this.props.windowHeight / 2) - (paddle.height / 2)
-        });
-      }
-    }
-
     updatePosition = newY => {
       this.setState({ y: newY });
     }

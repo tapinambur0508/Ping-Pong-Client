@@ -13,8 +13,8 @@ class Game extends React.Component {
     super(props);
 
     this.state = {
-      width: window.innerWidth,
-      height: window.innerHeight
+      width: 1000,
+      height: 480
     }
 
     this.authService = new AuthService();
@@ -27,35 +27,35 @@ class Game extends React.Component {
 
     this.socket.emit('joinRoom', { roomID: roomId, userID: this.user.sub });
 
-    window.addEventListener('resize', () => {
-      this.setState({
-        width: window.innerWidth,
-        height: window.innerHeight
-      });
-    });
+    window.addEventListener('keydown', this.handleKeyDown, false);
   }
 
-  render() {
-    return (
-      <Court
-        width={this.state.width}
-        height={this.state.height}>
-        <MyPaddle
-          user={this.user}
-          socket={this.socket}
-          windowWidth={this.state.width}
-          windowHeight={this.state.height} />
-        <Ball
-          socket={this.socket}
-          windowWidth={this.state.width}
-          windowHeight={this.state.height} />
-        <EnemyPaddle
-          socket={this.socket}
-          windowWidth={this.state.width}
-          windowHeight={this.state.height} />
-      </Court>
-    );
+  handleKeyDown = event => {
+    if (event.keyCode === 32) {
+      this.socket.emit('play', this.user.sub);
+    }
   }
+
+  render = () => (
+    <Court
+      width={this.state.width}
+      height={this.state.height}>
+      <MyPaddle
+        user={this.user}
+        socket={this.socket}
+        windowWidth={this.state.width}
+        windowHeight={this.state.height} />
+      <Ball
+        user={this.user}
+        socket={this.socket}
+        windowWidth={this.state.width}
+        windowHeight={this.state.height} />
+      <EnemyPaddle
+        socket={this.socket}
+        windowWidth={this.state.width}
+        windowHeight={this.state.height} />
+    </Court>
+  );
 }
 
 export default Game;
