@@ -14,7 +14,8 @@ class Game extends React.Component {
 
     this.state = {
       width: 1000,
-      height: 480
+      height: 480,
+      position: 0
     }
 
     this.authService = new AuthService();
@@ -25,7 +26,17 @@ class Game extends React.Component {
   componentDidMount() {
     const roomId = localStorage.getItem('room_id') || '';
 
-    this.socket.emit('joinRoom', { roomID: roomId, userID: this.user.sub });
+    this.socket.emit('joinRoom', {
+      roomID: roomId,
+      userID: this.user.sub,
+      battleTypeData: {
+        name: 'classic',
+        walls: 0
+      }
+    });
+    this.socket.on('joined', position => {
+      this.setState({ position });
+    });
 
     window.addEventListener('keydown', this.handleKeyDown, false);
   }
@@ -36,26 +47,53 @@ class Game extends React.Component {
     }
   }
 
-  render = () => (
-    <Court
-      width={this.state.width}
-      height={this.state.height}>
-      <MyPaddle
-        user={this.user}
-        socket={this.socket}
-        windowWidth={this.state.width}
-        windowHeight={this.state.height} />
-      <Ball
-        user={this.user}
-        socket={this.socket}
-        windowWidth={this.state.width}
-        windowHeight={this.state.height} />
-      <EnemyPaddle
-        socket={this.socket}
-        windowWidth={this.state.width}
-        windowHeight={this.state.height} />
-    </Court>
-  );
+  render() {
+    let leftPaddle;
+    let rightPaddle;
+    if (this.state.position) {
+      leftPaddle = (
+        <EnemyPaddle
+          socket={this.socket}
+          windowWidth={this.state.width}
+          windowHeight={this.state.height} />
+      );
+      rightPaddle = (
+        <MyPaddle
+          user={this.user}
+          socket={this.socket}
+          windowWidth={this.state.width}
+          windowHeight={this.state.height} />
+      );
+    } else {
+      rightPaddle = (
+        <EnemyPaddle
+          socket={this.socket}
+          windowWidth={this.state.width}
+          windowHeight={this.state.height} />
+      );
+      leftPaddle = (
+        <MyPaddle
+          user={this.user}
+          socket={this.socket}
+          windowWidth={this.state.width}
+          windowHeight={this.state.height} />
+      );
+    }
+
+    return (
+      <Court
+        width={this.state.width}
+        height={this.state.height}>
+        {leftPaddle}
+        <Ball
+          user={this.user}
+          socket={this.socket}
+          windowWidth={this.state.width}
+          windowHeight={this.state.height} />
+        {rightPaddle}
+      </Court>
+    );
+  }
 }
 
 export default Game;

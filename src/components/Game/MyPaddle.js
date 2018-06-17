@@ -61,7 +61,7 @@ class MyPaddle extends React.Component {
       y={this.props.y}
       width={this.props.width}
       height={this.props.height}
-      fill="#ffffff" />
+      fill="#e20025" />
   );
 }
 
