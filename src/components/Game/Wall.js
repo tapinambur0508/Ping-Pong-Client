@@ -3,8 +3,8 @@ import { Rect } from 'react-konva';
 
 const Wall = props => (
   <Rect
-    x={props.x}
-    y={props.y}
+    x={props.x - (props.width / 2)}
+    y={props.y - (props.height / 2)}
     width={props.width}
     height={props.height}
     fill="#ff4242" />
