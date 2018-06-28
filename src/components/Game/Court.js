@@ -26,6 +26,7 @@ const Score = styled.div`
   padding: 20px;
   display: flex;
   color: #ffffff;
+  position: absolute;
   justify-content: center;
   align-items: center;
   font-size: 3em;
