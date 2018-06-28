@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import io from 'socket.io-client';
 
 import Ball from './Ball';
@@ -44,8 +45,34 @@ class Game extends React.Component {
       this.setState({ position });
     });
 
-    this.socket.on('gameFinished', () => {
-      alert('gameFinished');
+    this.socket.on('gameFinished', winnerId => {
+      if (winnerId === this.user.sub) {
+        alert('You win!!!');
+
+        const token = this.authService.token;
+
+        axios.get('https://ping-pong-main-server.herokuapp.com/api/oauth/user', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+          .then(({ data }) => {
+            const user = data['user'];
+
+            axios.put(`https://ping-pong-main-server.herokuapp.com/api/user/${winnerId}`, {
+              user: {
+                account: {
+                  experience: user.account.experience + 100
+                }
+              }
+            })
+              .then(() => console.log('ok'))
+              .catch(err => console.log(err));
+          })
+          .catch(err => console.log(err));
+      } else {
+        alert('You lose =(');
+      }
     });
 
     window.addEventListener('keydown', this.handleKeyDown, false);
@@ -70,10 +97,10 @@ class Game extends React.Component {
 
   render() {
     const walls = this.state.walls.map((element, index) => (
-      <Wall 
+      <Wall
         key={index}
         x={element.pos._x}
-        y={element.pos._y} 
+        y={element.pos._y}
         width={element.size._x}
         height={element.size._y} />
     ));
