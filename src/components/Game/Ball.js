@@ -13,6 +13,10 @@ class Ball extends React.Component {
 
   componentDidMount() {
     this.props.socket.on('state', newState => {
+
+      this.props.onScore(newState.rackets);
+      this.props.onWalls(newState.walls);
+
       requestAnimationFrame(() => this.setState({
         x: newState.ball.pos._x,
         y: newState.ball.pos._y

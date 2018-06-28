@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^1.2.1",
+    "@material-ui/core": "^1.3.0",
     "axios": "^0.18.0",
     "css-loader": "^0.28.11",
     "jwt-decode": "^2.2.0",
-    "konva": "^2.1.5",
+    "konva": "^2.1.6",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-facebook-login": "^4.0.1",
@@ -18,7 +18,7 @@
     "react-scripts": "^1.1.4",
     "socket.io-client": "^2.1.1",
     "style-loader": "^0.21.0",
-    "styled-components": "^3.3.2"
+    "styled-components": "^3.3.3"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
-    "babel-jest": "^23.0.1",
+    "babel-jest": "^23.2.0",
     "babel-loader": "^7.1.4",
     "babel-polyfill": "^6.26.0",
     "babel-preset-env": "^1.7.0",
@@ -37,7 +37,7 @@
     "babel-preset-react": "^6.24.1",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "jest": "^23.1.0",
+    "jest": "^23.2.0",
     "jest-localstorage-mock": "^2.2.0",
     "react-test-renderer": "^16.4.1"
   },

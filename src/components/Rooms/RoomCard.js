@@ -21,6 +21,7 @@ const RoomCard = props => {
 
         socket.emit('connectToGameRoom', data);
         localStorage.setItem('room_id', data._id);
+        localStorage.setItem('battle_type', data.battleType.name)
         props.history.push('/game');
       })
       .catch(err => console.log(err));

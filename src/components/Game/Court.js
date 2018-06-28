@@ -3,11 +3,10 @@ import { Stage, Layer } from 'react-konva';
 import styled from 'styled-components';
 
 const Court = styled.div`
-  width: 1000px;
-  height: 480px;
+  width: 1440px;
+  height: 720px;
   background: #46a07e;
   position: relative;
-  overflow: hidden;
   z-index: -2;
 
   &:after {
@@ -22,8 +21,38 @@ const Court = styled.div`
   }
 `;
 
+const Score = styled.div`
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  color: #ffffff;
+  justify-content: center;
+  align-items: center;
+  font-size: 3em;
+  font-family: 'Shrikhand', cursive;
+`;
+
+const LeftScore = styled.div`
+  flex: 1;
+  margin-right: 2em;
+  text-align: right;
+`;
+
+const RightScore = styled.div`
+  flex: 1;
+  margin-left: 2em;
+`;
+
 export default props => (
   <Court>
+    <Score>
+      <LeftScore>
+        {props.leftScore}
+      </LeftScore>
+      <RightScore>
+        {props.rightScore}
+      </RightScore>
+    </Score>
     <Stage width={props.width} height={props.height}>
       <Layer>
         {props.children}

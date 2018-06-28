@@ -55,6 +55,7 @@ class Rooms extends React.Component {
 
       if (room.firstPlayer === this.user.sub) {
         localStorage.setItem('room_id', room._id);
+        localStorage.setItem('battle_type', room.battleType.name);
         this.props.history.push('/game');
       }
     });
